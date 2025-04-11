@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-
+from flask_login import LoginManager
 db = SQLAlchemy()
 
 def create_app():
@@ -19,6 +19,14 @@ def create_app():
 
     from .models import User, Note
 
+    login_manager=LoginManager()
+    login_manager.login_view='auth.login' # where flask should take us when the user is not logged in 
+    login_manager.init_app(app) # telling the login manager which app is being used
+   
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id)) # filters by the primary key 
+    
 
     with app.app_context():# so that flask knows the app youre talking about
         #whether its a config database or a route 
