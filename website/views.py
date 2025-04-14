@@ -6,4 +6,4 @@ views=Blueprint('views',__name__)
 @views.route('/')
 @login_required # so cant go to the home page unless you log in 
 def home():
-    return render_template("home.html")
+    return render_template("home.html",user=current_user)
