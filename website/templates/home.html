@@ -1,7 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Population census</title>
+
+    <title>Population Census</title>
     <style>
         table {
             width: 100%;
@@ -28,12 +32,10 @@
 </head>
 <body>
     <h1>مردم شماری</h1>
-    
-    <form method="POST" action="{{ url_for('views.delete_records') }}">
+    <form method="POST" action="{{ url_for('views.delete_rows') }}">
         <div class="top-bar">
             <button type="submit">Delete Selected</button>
         </div>
-
         <table>
             <tr>
                 <th>Select</th>
@@ -53,3 +55,4 @@
     </form>
 </body>
 </html>
+{% endblock %}
