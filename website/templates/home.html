@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
     <title>Population Census</title>
     <style>
+
+
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -32,27 +31,50 @@
 </head>
 <body>
     <h1>مردم شماری</h1>
-    <form method="POST" action="{{ url_for('views.delete_rows') }}">
+    <form method="POST" action="{{ url_for('views.delete_records') }}">
         <div class="top-bar">
             <button type="submit">Delete Selected</button>
+            <button type="button" onclick="editSelected()">Edit Selected</button>
         </div>
         <table>
-            <tr>
-                <th>Select</th>
-                {% for col in columns %}
-                    <th>{{ col }}</th>
+            <div class="table responsive">
+                <table class="table table=bordered table hover">
+                    <!-- This will make your table scrollable sideways without messing up the layout or the navbar. -->
+                <tr>
+                    <th>Select</th>
+                    {% for col in columns %}
+                        <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in rows %}
+                <tr>
+                    <td><input type="checkbox" name="delete_ids" value="{{ row[-1] }}"></td>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+
                 {% endfor %}
-            </tr>
-            {% for row in data %}
-            <tr>
-                <td><input type="checkbox" name="delete_ids" value="{{ row[-1] }}"></td>
-                {% for cell in row %}
-                    <td>{{ cell }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
+                </table>
+            </div>
         </table>
     </form>
 </body>
 </html>
 {% endblock %}
+<script>
+    function editSelected() {
+        // Get all checkboxes
+        var checkboxes = document.querySelectorAll('input[name="delete_ids"]:checked');
+        
+        // Check if a checkbox is selected
+        if (checkboxes.length === 1) {
+            var selectedId = checkboxes[0].value;
+            
+            // Redirect to the edit page with the selected ID as a query parameter
+            window.location.href = "{{ url_for('views.edit_record') }}?id=" + selectedId;
+        } else {
+            alert('Please select one record to edit.');
+        }
+    }
+</script>
