@@ -3,7 +3,7 @@ from flask_login import login_required,current_user
 from .models import Note
 from . import db
 import psycopg2
-from config import config,fetch_data,Delete_rows
+from config import fetch_data,Delete_rows
 import json
 views=Blueprint('views',__name__)
 
@@ -15,7 +15,7 @@ def home():
     columns,rows=fetch_data()
 
  
-    return render_template("home.html", data=rows, columns=columns)
+    return render_template("home.html",columns=columns,rows=rows)
 
 
 @views.route('/delete-records', methods=['POST'])
@@ -24,6 +24,15 @@ def home():
 #     delete_rows()
 
 #     return redirect(url_for('views.home'))
-def delete_rows():
+# def delete_rows():
+#     Delete_rows()
+#     return redirect(url_for('views.home') )
+
+def delete_records():
+      # Gets all selected checkboxes
     Delete_rows()
-    return redirect(url_for('views.home')) 
+
+
+    return redirect(url_for('views.home'))
+
+
