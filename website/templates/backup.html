@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Backup{% endblock %}
+{% block content %}
+<h2>Backup Records</h2>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      {% for col in colnames %}
+        <th>{{ col }}</th>
+      {% endfor %}
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in rows %}
+    <tr>
+      {% for val in row %}
+        <td>{{ val }}</td>
+      {% endfor %}
+      <td>
+        <form action="{{ url_for('views.restore_record') }}" method="POST" style="display:inline;">
+          <input type="hidden" name="census_id" value="{{ row[colnames.index('census_id')] }}">
+          <button type="submit" class="btn btn-sm btn-success">Restore</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

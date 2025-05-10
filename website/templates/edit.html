@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Record</h2>
+<form method="POST" action="{{ url_for('views.insert_record') if insert_mode else url_for('views.edit_record') }}">
+
+    {% for col, val in zip(colnames, row) %}
+<!-- The zip() function in Python combines two (or more) sequences into pairs — it “zips” them together. -->
+        {% if col == 'census_id' %}
+            <input type="hidden" name="census_id" value="{{ val }}">
+            <p><strong>{{ col }}:</strong> {{ val }}</p>
+        {% else %}
+            <label>{{ col }}:</label>
+            <input type="text" name="{{ col }}" value="{{ val }}"><br>
+        {% endif %}
+    {% endfor %}
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

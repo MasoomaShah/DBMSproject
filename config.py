@@ -22,7 +22,7 @@ def fetch_data():
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
-        cur.execute("SELECT * FROM pakistan_census_data")
+        cur.execute("SELECT * FROM pakistan_census_data ORDER BY census_id")
         rows = cur.fetchall()
         columns = [desc[0] for desc in cur.description]
         cur.close()
@@ -50,6 +50,13 @@ def Delete_rows(selected_ids):
 
     except Exception as e:
         flash(f"Error :{str(e)}",category="error")
+
+
+
+
+
+
+
     # selected_ids = request.form.getlist('delete_ids')  # Gets all selected checkboxes
 
     # if not selected_ids:

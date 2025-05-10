@@ -33,12 +33,20 @@
 </head>
 <body>
     <h1>مردم شماری</h1>
-    <h2>TEST HEADER</h2>
+    
     <form method="POST" action="{{ url_for('views.handle_records') }}">
         <div class="top-bar">
-        <button type="submit" name="action" value="delete">Delete Selected</button>
-        <button type="submit" name="action" value="edit">Edit Selected</button>
+        <!-- making an insert button on the left side -->
+            <div class ="left-buttons">
+                <a href="{{url_for('views.insert_record')}}">
+                    <button type="button">Insert New Record</button>
+                </a>
+            </div>
+            <div class="right-buttons">
+                <button type="submit" name="action" value="delete">Delete Selected</button>
+                <button type="submit" name="action" value="edit">Edit Selected</button>
         </div>
+    </div>
         <table>
             <div class="table responsive">
                 <table class="table table=bordered table hover">
