@@ -6,6 +6,8 @@
 
 
 
+
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -31,10 +33,11 @@
 </head>
 <body>
     <h1>مردم شماری</h1>
-    <form method="POST" action="{{ url_for('views.delete_records') }}">
+    <h2>TEST HEADER</h2>
+    <form method="POST" action="{{ url_for('views.handle_records') }}">
         <div class="top-bar">
-            <button type="submit">Delete Selected</button>
-            <button type="button" onclick="editSelected()">Edit Selected</button>
+        <button type="submit" name="action" value="delete">Delete Selected</button>
+        <button type="submit" name="action" value="edit">Edit Selected</button>
         </div>
         <table>
             <div class="table responsive">
@@ -48,7 +51,7 @@
                 </tr>
                 {% for row in rows %}
                 <tr>
-                    <td><input type="checkbox" name="delete_ids" value="{{ row[-1] }}"></td>
+                    <td><input type="checkbox" name="selected_ids" value="{{ row[-1] }}"></td>
                     {% for cell in row %}
                         <td>{{ cell }}</td>
                     {% endfor %}
@@ -62,19 +65,3 @@
 </body>
 </html>
 {% endblock %}
-<script>
-    function editSelected() {
-        // Get all checkboxes
-        var checkboxes = document.querySelectorAll('input[name="delete_ids"]:checked');
-        
-        // Check if a checkbox is selected
-        if (checkboxes.length === 1) {
-            var selectedId = checkboxes[0].value;
-            
-            // Redirect to the edit page with the selected ID as a query parameter
-            window.location.href = "{{ url_for('views.edit_record') }}?id=" + selectedId;
-        } else {
-            alert('Please select one record to edit.');
-        }
-    }
-</script>
