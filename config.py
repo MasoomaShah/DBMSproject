@@ -32,12 +32,8 @@ def fetch_data():
         print("Database error:", e)
         return [], []
 
-def Delete_rows():
-    selected_ids = request.form.getlist('delete_ids')  # Gets all selected checkboxes
-    if not selected_ids:
+def Delete_rows(selected_ids):
 
-        flash("No rows selected.", "error")
-        return redirect(url_for('views.home'))
     
     try:
         params = config()
@@ -158,8 +154,6 @@ def Delete_rows():
 #     columns = [desc[0] for desc in cur.description]
 #     cur.close()
 #     conn.close()
-
-
 
 
 
