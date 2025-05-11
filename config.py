@@ -39,6 +39,7 @@ def Delete_rows(selected_ids):
         params = config()
 
         conn = psycopg2.connect(**params)
+        # not sql cursor This is a Python-side object provided by psycopg2 to send SQL commands to PostgreSQL
         cur = conn.cursor()
         for pk in selected_ids:
             cur.execute("DELETE FROM pakistan_census_data WHERE census_id= %s", (pk,))
