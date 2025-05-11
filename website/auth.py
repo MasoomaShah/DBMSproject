@@ -3,6 +3,7 @@ from .models import User
 from flask_login import login_user, login_required, logout_user, current_user
 
 from .import db
+#am trying
 
 # you cannot now backtrack to the original password like encryption
 auth=Blueprint('auth',__name__)
