@@ -21,6 +21,7 @@ def sign_up():
 
         # check if user exists in Firestore
         existing = db.collection('Users').where('email', '==', email).limit(1).stream()
+
         if any(existing):
             flash('Email already exists', category='error')
             return render_template("sign_up.html")

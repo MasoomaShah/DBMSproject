@@ -11,10 +11,10 @@ if not firebase_admin._apps:
 # Firestore client
 db = firestore.client()
 
-def add_user(email, password_hash):
+def add_user(email, password):
     db.collection('Users').document(email).set({
         'email': email,
-        'password': password_hash
+        'password': password
     })
 def verify_login(email, password_input):
     users_ref = db.collection('Users')
