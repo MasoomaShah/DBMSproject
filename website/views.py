@@ -1,10 +1,14 @@
-from flask import Blueprint,render_template,request,flash,jsonify, url_for,redirect
+from flask import Blueprint,session,render_template,request,flash,jsonify, url_for,redirect
 from flask_login import login_required,current_user
-
+from flask import request, redirect, flash, render_template
+from .firebase import verify_login
+from flask_login import logout_user
 import psycopg2
-from config import config,fetch_data,Delete_rows
+from config import config,Delete_rows,fetch_data
+
 import json
 views=Blueprint('views',__name__)
+
 
 @views.route('/')
 @login_required # so cant go to the home page unless you log in 
@@ -17,22 +21,30 @@ def home():
     return render_template("home.html",columns=columns,rows=rows)
 
 
-# @views.route('/delete-records', methods=['POST'])
+@views.route('/delete-records', methods=['POST'])
     
-# def delete_records():
-#     delete_rows()
+# # def delete_records():
+# #     delete_rows()
 
-#     return redirect(url_for('views.home'))
-# def delete_rows():
-#     Delete_rows()
-#     return redirect(url_for('views.home') )
+# #     return redirect(url_for('views.home'))
+# # def delete_rows():
+# #     Delete_rows()
+# #     return redirect(url_for('views.home') )
+
+#This is used when you're using Blueprints—a way to split Flask apps into multiple files.
 
 def delete_records(selected_ids):
       # Gets all selected checkboxes
     Delete_rows(selected_ids)
 
 
-    # return redirect(url_for('views.home'))
+    return redirect(url_for('views.home'))
+
+@views.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 @views.route('/handle_records', methods=['POST'])
 def handle_records():
@@ -206,3 +218,8 @@ def restore_record():
         conn.close()
 
     return redirect(url_for("views.backup_page"))
+
+
+
+
+

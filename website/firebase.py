@@ -12,7 +12,7 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 def add_user(email, password):
-    db.collection('Users').document(email).set({
+    db.collection('Users').document(1).set({
         'email': email,
         'password': password
     })
@@ -22,8 +22,14 @@ def verify_login(email, password_input):
 
     for doc in query:
         data = doc.to_dict()
-        return data['password'] == password_input  # simple match
+        print(f"Fetched data: {data}")  # DEBUG
+        print(f"Input password: {password_input}")
+        print(f"Stored password: {data['password']}")
+        return data['password'] == password_input
+    print("No user found for that email")
+    return False
 
-    return False  # No matching email found
 
-print(verify_login('tim@gmail.com','1234567'))
+print(verify_login('qasim.riaz@giki.edu.pk','1234567'))  
+
+ # should print a list of user docs or be empty
