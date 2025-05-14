@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Data Analytics{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="my-4">Data Analytics</h3>
+    
+    <div class="row">
+        <!-- Location Data Table -->
+        <div class="col-md-6 mb-4">
+            <h4>Location Data</h4>
+            <table class="table table-bordered table-striped table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        {% for column in location_columns %}
+                            <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if location_data %}
+                        {% for row in location_data %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="{{ location_columns|length }}">No data available</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Population Stats Data Table -->
+        <div class="col-md-6 mb-4">
+            <h4>Population Statistics</h4>
+            <table class="table table-bordered table-striped table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        {% for column in population_stats_columns %}
+                            <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if population_stats_data %}
+                        {% for row in population_stats_data %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="{{ population_stats_columns|length }}">No data available</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

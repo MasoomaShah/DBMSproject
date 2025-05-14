@@ -55,6 +55,35 @@ def Delete_rows(selected_ids):
 
 
 
+def fetch_data_location():
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM location")
+        rows = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        cur.close()
+        conn.close()
+        return columns, rows
+    except Exception as e:
+        print("Database error:", e)
+        return [], []
+def fetch_data_stats():
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM population_stats")
+        rows = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        cur.close()
+        conn.close()
+        return columns, rows
+    except Exception as e:
+        print("Database error:", e)
+        return [], []
+
 
 
 

@@ -4,7 +4,7 @@ from flask import request, redirect, flash, render_template
 from .firebase import verify_login
 from flask_login import logout_user
 import psycopg2
-from config import config,Delete_rows,fetch_data
+from config import config,Delete_rows,fetch_data_location,fetch_data_stats,fetch_data
 
 import json
 views=Blueprint('views',__name__)
@@ -221,5 +221,17 @@ def restore_record():
 
 
 
+@views.route('/data-analytics')
+def data_analytics():
+    # Fetch data from the database
+    location_columns, location_data = fetch_data_location()
+    population_stats_columns, population_stats_data = fetch_data_stats()
 
-
+    # Render the template with the data
+    return render_template(
+        "data_analytics.html",
+        location_columns=location_columns,
+        location_data=location_data,
+        population_stats_columns=population_stats_columns,
+        population_stats_data=population_stats_data
+    )
