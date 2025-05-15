@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 
 import psycopg2
-from flask import redirect, request,flash,url_for,redirect
+from flask import flash
 # Here in this file I tried to create GUI using tkinter
 # The GUI created here contain different fields to insert record in the
 import psycopg2
